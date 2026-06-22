@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breeze Studio — Case Study · Aonghus Davoren</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:           #12141E;
+            --text:         #ffffff;
+            --text-muted:   rgba(255,255,255,0.7);
+            --border:       rgba(255,255,255,0.2);
+            --border-soft:  rgba(255,255,255,0.2);
+            --bg-subtle:    rgba(255,255,255,0.08);
+            --accent:       #979797;
+
+            /* ── Type scale (16px base · ~1.2 ratio) ── */
+            --text-xs:    0.75rem;   /* 12px */
+            --text-sm:    0.875rem;  /* 14px */
+            --text-base:  1rem;      /* 16px */
+            --text-md:    1.125rem;  /* 18px */
+            --text-lg:    1.25rem;   /* 20px */
+            --text-xl:    1.5rem;    /* 24px */
+            --text-2xl:   1.875rem;  /* 30px */
+            --text-3xl:   2.5rem;    /* 40px */
+
+            /* ── Weights ── */
+            --weight-normal:   400;
+            --weight-medium:   500;
+            --weight-semibold: 600;
+            --weight-bold:     700;
+
+            /* ── Line heights ── */
+            --leading-tight: 1.3;
+            --leading-snug:  1.5;
+            --leading-relaxed: 1.65;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mulish', sans-serif;
+            font-size: var(--text-base);
+            line-height: var(--leading-snug);
+            color: var(--text);
+            background: var(--bg);
+            overflow-x: hidden;
+        }
+
+        a {
+            color: var(--text);
+            text-decoration: underline;
+        }
+
+        /* ── Case study layout ── */
+        .cs {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 6rem;
+        }
+
+        /* Narrow reading column for text; figures break out to full width */
+        .cs-back,
+        .cs-hero,
+        .cs h2,
+        .cs-body,
+        .cs-role,
+        .cs-callout,
+        .cs-note {
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ── Back link ── */
+        .cs-back {
+            display: block;
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 4rem;
+        }
+
+        .cs-back:hover {
+            color: var(--text);
+        }
+
+        /* ── Hero ── */
+        .cs-hero {
+            margin-bottom: 4rem;
+        }
+
+        .cs-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--weight-semibold);
+            line-height: var(--leading-tight);
+            margin-bottom: 0.75rem;
+        }
+
+        .cs-subtitle {
+            font-size: var(--text-md);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .cs-meta {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .cs-role {
+            font-size: var(--text-base);
+            color: var(--text-muted);
+        }
+
+        .cs-role strong {
+            color: var(--text);
+            font-weight: var(--weight-semibold);
+        }
+
+        /* ── Sections ── */
+        .cs h2 {
+            font-size: var(--text-xl);
+            font-weight: var(--weight-bold);
+            color: var(--text);
+            margin-top: 4rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .cs-body {
+            font-size: var(--text-base);
+            line-height: var(--leading-relaxed);
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .cs-list {
+            max-width: 680px;
+            margin: 0 auto 1.25rem;
+            padding-left: 1.25rem;
+            list-style: disc;
+        }
+
+        .cs-list li {
+            font-size: var(--text-base);
+            line-height: var(--leading-relaxed);
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .cs-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Callout (for emphasis) ── */
+        .cs-callout {
+            font-size: var(--text-lg);
+            line-height: var(--leading-snug);
+            color: var(--text);
+            border-left: 2px solid var(--text);
+            padding-left: 1.25rem;
+            margin-top: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* ── Figures (placeholder boxes until images arrive) ── */
+        .cs-figure {
+            width: 100%;
+            margin: 3rem 0;
+        }
+
+        /* Images may break out of the reading container, up to 1200px */
+        .cs-wide {
+            width: min(1200px, 100vw - 3rem);
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Row of equal-width images */
+        .cs-row {
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .cs-figure-box--portrait {
+            aspect-ratio: 9 / 16;
+        }
+
+        /* Real images */
+        .cs-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        /* Stage that holds an angled laptop-mockup PNG, cropped by the box */
+        .device-stage {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 16 / 9;
+            background-color: #fff6f0;
+            background-image:
+                radial-gradient(130% 130% at 0% 0%, #ffb88f 0%, rgba(255, 184, 143, 0) 48%),
+                radial-gradient(120% 120% at 100% 100%, #fac9e4 0%, rgba(250, 201, 228, 0) 50%);
+        }
+
+        /* Logo, vertically centred, ~20% from the right edge */
+        .device-logo {
+            position: absolute;
+            top: 50%;
+            right: 20%;
+            transform: translateY(-50%);
+            width: 15%;
+            height: auto;
+            z-index: 1;
+        }
+
+        /* The exported (transparent) laptop mockup */
+        .device-mockup {
+            position: absolute;
+            display: block;
+            width: 82%;
+            left: 6%;
+            top: -8%;              /* top of the laptop cut off by the box */
+            filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.22));
+        }
+
+        /* Placeholder until the mockup PNG is added */
+        .device-placeholder {
+            position: absolute;
+            inset: 12% 6% auto;
+            aspect-ratio: 16 / 10;
+            border: 1px dashed var(--border-soft);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-size: var(--text-sm);
+            font-style: italic;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        /* White matte box for an image */
+        .cs-imgbox {
+            background: #fff;
+            border-radius: 4px;
+            padding: 1rem;
+        }
+
+        .cs-imgbox .cs-img {
+            border-radius: 0;
+        }
+
+        /* Click to zoom */
+        .cs-zoomable {
+            cursor: zoom-in;
+        }
+
+        /* Lightbox overlay */
+        .cs-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(18, 20, 30, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: none;
+            overflow: auto;
+            cursor: zoom-out;
+            padding: 2rem;
+        }
+
+        .cs-lightbox.is-open {
+            display: block;
+        }
+
+        .cs-lightbox img {
+            display: block;
+            margin: auto;
+            border-radius: 4px;
+        }
+
+        /* Video (click to play, with controls + poster) */
+        .cs-video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: block;
+            background: #000;
+            border-radius: 4px;
+            object-fit: contain;
+        }
+
+        .cs-figure-box {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: var(--bg-subtle);
+            border: 1px dashed var(--border-soft);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .cs-figure-box span {
+            font-size: var(--text-sm);
+            font-style: italic;
+            color: var(--text-muted);
+            max-width: 32ch;
+        }
+
+        .cs-caption {
+            margin-top: 0.85rem;
+            font-size: var(--text-sm);
+            font-style: italic;
+            color: var(--text-muted);
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ── Closing note ── */
+        .cs-note {
+            font-size: var(--text-sm);
+            font-style: italic;
+            color: var(--text-muted);
+            line-height: var(--leading-relaxed);
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 768px) {
+            .cs {
+                padding: 2.5rem 1.25rem 4rem;
+            }
+
+            .cs-back {
+                margin-bottom: 2.5rem;
+            }
+
+            .cs-title {
+                font-size: var(--text-2xl);
+            }
+
+            /* Stack image rows on mobile */
+            .cs-row {
+                grid-auto-flow: row;
+                grid-auto-columns: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cs">
+
+    <a class="cs-back" href="index.html">← Back</a>
+
+    <!-- Hero -->
+    <div class="cs-hero">
+        <h1 class="cs-title">Breeze Studio</h1>
+        <p class="cs-subtitle">Building HubSpot's agent platform from the ground up</p>
+        <p class="cs-meta">Design Manager + IC Designer, September 2024 – September 2025</p>
+        <p class="cs-role"><strong>Role:</strong> Design Manager. Led direction-setting, cross-functional alignment, and IC work on the runtime experience, while coaching the design team through a zero-to-one build.</p>
+    </div>
+
+    <!-- Lead image: angled laptop mockup cropped by a containing box -->
+    <figure class="cs-figure cs-wide">
+        <div class="device-stage">
+            <!-- Replace the placeholder with: <img class="device-mockup" src="assets/images/case-studies/breeze-studio/laptop-overview.png" alt="Breeze Studio"> -->
+            <div class="device-placeholder"><span>Angled laptop mockup (transparent PNG, exported from Figma)</span></div>
+            <img class="device-logo" src="assets/images/case-studies/breeze-studio/breeze-studio-logo.svg" alt="Breeze Studio logo">
+        </div>
+    </figure>
+
+    <!-- Context -->
+    <h2>Context</h2>
+    <p class="cs-body">By late 2024, HubSpot had built multiple AI agents across different backends. They worked in isolation, with no awareness of each other and no shared infrastructure. Engineering proposed consolidating all agents onto a single platform, with Breeze Studio as the frontend for building, running, and managing them. Internal teams could migrate existing agents and build future ones on the platform, and eventually customers could do the same. From a design perspective this was zero to one: even though we had agents, we had no existing prior art for building and running them.</p>
+
+    <!-- The problem -->
+    <h2>The problem</h2>
+    <ul class="cs-list">
+        <li>Customers had access to agents but those agents had no awareness of each other. A Prospecting Agent and a Data Agent, for example, couldn't share context or work together</li>
+        <li>Internal product teams were reluctant to migrate to a unified platform and protective over their existing domains</li>
+        <li>We had no existing design patterns for building and running agents</li>
+        <li>The scope was large and interdependent: building, running, tools, knowledge, and marketplace, developed across multiple teams simultaneously</li>
+        <li>Product strategy shifted constantly as stakeholders debated whether to build primarily for internal teams or for customers</li>
+    </ul>
+
+    <!-- My role -->
+    <h2>My role</h2>
+    <p class="cs-body">I was design manager for the project but operated as a player coach throughout. I set design direction, ran alignment across a growing team of designers and PMs, coached my reports, and at key moments stepped in as IC to move the work forward or raise the quality bar. The scope grew to include agent building, agent runtime, tools, knowledge, marketplace, and the connective tissue threading it all together.</p>
+
+    <!-- Setting direction -->
+    <h2>Setting direction</h2>
+    <p class="cs-body">With so many interdependent surface areas in motion, we risked the end-to-end experience becoming fragmented. To address this I:</p>
+    <ul class="cs-list">
+        <li>Worked with my report on the high level IA early, providing direction and feedback on how the key surfaces related to each other: the agent builder, marketplace, Copilot, and Agent Studio</li>
+        <li>Called for a weekly end-to-end alignment session, co-running with the director of product</li>
+        <li>Created a lo-fi end-to-end prototype in Figma to guide the team on what we were working toward, building up fidelity over time</li>
+        <li>Brought in a second designer to take over and continue refining the prototype as the scope grew</li>
+    </ul>
+
+    <!-- Early IA wireframe -->
+    <figure class="cs-figure">
+        <div class="cs-imgbox">
+            <img class="cs-img cs-zoomable" src="assets/images/case-studies/breeze-studio/early-ia.png" alt="Early Breeze Studio IA wireframe">
+        </div>
+    </figure>
+
+    <p class="cs-body">The prototype became a key alignment tool: used internally to spot gaps, shared with engineering as a north star, and shown at an all-product meeting that gave people a clear picture of what we were building toward for Inbound 2025. Until that point, the scale of the scope had made progress hard to see. The weekly session continued beyond the initial build, used to drive further improvements and align dependent teams such as marketplace and navigation.</p>
+
+    <!-- 3 horizontal images -->
+    <div class="cs-row cs-wide">
+        <div class="cs-figure-box"><span>Image</span></div>
+        <div class="cs-figure-box"><span>Image</span></div>
+        <div class="cs-figure-box"><span>Image</span></div>
+    </div>
+
+    <!-- Tools & knowledge video -->
+    <figure class="cs-figure">
+        <video class="cs-video" controls preload="metadata" poster="assets/videos/case-studies/breeze-studio/tools-knowledge-poster.jpg">
+            <source src="assets/videos/case-studies/breeze-studio/tools-knowledge.mp4" type="video/mp4">
+        </video>
+    </figure>
+
+    <!-- The runtime -->
+    <h2>The runtime</h2>
+    <p class="cs-body">The initial runtime design used collapsible panels. We felt this could be improved: panels opening and closing automatically created too much movement, making it hard for users to orient themselves. As we were spinning up a new team and hiring a dedicated designer, I stepped in as IC to explore a different direction.</p>
+    <p class="cs-body">To address this I:</p>
+    <ul class="cs-list">
+        <li>Moved to a three-panel layout: previous runs on the left, agent reasoning in the center, and an output panel on the right that expanded when results were ready</li>
+        <li>Defined the runtime as a non-conversational surface, with a prompt-to-modify interaction that acted on the output rather than opening a conversation</li>
+        <li>Pushed for elevated output quality early, creating a rough visual and reference material to show what a structured, report-style output could look like</li>
+    </ul>
+    <p class="cs-body">The designer who joined the runtime team took that direction and executed it well.</p>
+
+    <figure class="cs-figure">
+        <video class="cs-video" controls preload="metadata" poster="assets/videos/case-studies/breeze-studio/runtime-poster.jpg">
+            <source src="assets/videos/case-studies/breeze-studio/runtime.mp4" type="video/mp4">
+        </video>
+    </figure>
+    <figure class="cs-figure">
+        <video class="cs-video" controls preload="metadata" poster="assets/videos/case-studies/breeze-studio/runtime-refine-poster.jpg">
+            <source src="assets/videos/case-studies/breeze-studio/runtime-refine.mp4" type="video/mp4">
+        </video>
+    </figure>
+    <figure class="cs-figure">
+        <div class="cs-figure-box"><span>Before / after: collapsible panels vs. three-panel layout</span></div>
+    </figure>
+    <figure class="cs-figure">
+        <div class="cs-figure-box"><span>Examples of elevated output design</span></div>
+    </figure>
+    <!-- Author note: revisit the craft paragraph below once the elevated-output visuals are in place. -->
+
+    <!-- Coaching and craft -->
+    <h2>Coaching and craft</h2>
+    <p class="cs-body">The design team was working in new territory with a large and growing scope. My coaching focused on two things:</p>
+    <ul class="cs-list">
+        <li>Helping designers develop and defend a point of view. Under pressure, the tendency is to present multiple options without a clear recommendation. I worked with my reports on presenting one to two directions maximum, each with a clear rationale, and on holding that position under engineering pushback</li>
+        <li>Distinguishing between feasibility constraints and timeline constraints. Often the design intent did not depend on the part engineering was pushing back on</li>
+    </ul>
+    <p class="cs-body">On craft, I worked to keep the quality bar visible throughout. That meant regular design reviews and 1:1 feedback sessions, bug bashes as we got closer to launch, and Looms shared with both design and engineering showing what good looked like and where we could improve. Competitor examples were a regular reference point, used to show what better could look like rather than just describing it.</p>
+    <!-- Author note: revisit this paragraph with visual examples of how craft was elevated once artefacts are gathered. -->
+
+    <!-- 1 image -->
+    <figure class="cs-figure cs-wide">
+        <div class="cs-figure-box"><span>Image</span></div>
+    </figure>
+
+    <!-- Protecting focus -->
+    <h2>Protecting focus</h2>
+    <p class="cs-body">As we approached Inbound, supporting pages still needed to be designed for cohesion: an overview page and an intro and onboarding experience. Rather than pull my designers away from the core work, I took these on myself, used design system frameworks and templates to move quickly, and liaised directly with engineering to get them built under a time crunch. This kept the team focused on the core building and runtime experience.</p>
+
+    <!-- 2 horizontal images -->
+    <div class="cs-row cs-wide">
+        <div class="cs-figure-box"><span>Image</span></div>
+        <div class="cs-figure-box"><span>Image</span></div>
+    </div>
+
+    <!-- Outcome -->
+    <h2>Outcome</h2>
+    <p class="cs-body">Breeze Studio shipped at Inbound 2025. Key results:</p>
+    <ul class="cs-list">
+        <li>Custom assistants, whose MVP I had designed earlier, were a particular success, giving customers a clear entry point into agent building</li>
+        <li>Shortly after launch we opened a beta for users to create their own custom agents</li>
+    </ul>
+    <p class="cs-body">The fuller vision, getting internal teams to migrate their existing flagship agents onto the platform, was still in progress. Some of that was functional and some of it was organisational, requiring resolution above our level.</p>
+
+    <!-- Custom assistants video -->
+    <figure class="cs-figure">
+        <video class="cs-video" controls preload="metadata" poster="assets/videos/case-studies/breeze-studio/custom-assistant-poster.jpg">
+            <source src="assets/videos/case-studies/breeze-studio/custom-assistant.mp4" type="video/mp4">
+        </video>
+    </figure>
+
+    <!-- 3 vertical images -->
+    <div class="cs-row cs-wide">
+        <div class="cs-figure-box cs-figure-box--portrait"><span>Image</span></div>
+        <div class="cs-figure-box cs-figure-box--portrait"><span>Image</span></div>
+        <div class="cs-figure-box cs-figure-box--portrait"><span>Image</span></div>
+    </div>
+
+    <!-- Reflection -->
+    <h2>Reflection</h2>
+    <p class="cs-body">Building a platform from zero in a space moving as fast as AI agents required constant recalibration. The biggest lesson was knowing when to push for strategic clarity and when to design forward anyway. There are always simplifications to be found, and that work continues.</p>
+
+    <p class="cs-note">This project continues. In January 2026, Breeze Studio began unification with HubSpot's automation platform. In June 2026 we launched a private beta to capture customer feedback on the new builder and management experience.</p>
+
+</div>
+
+<!-- Zoom lightbox -->
+<div class="cs-lightbox" id="lightbox"><img alt=""></div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+
+    document.querySelectorAll('.cs-zoomable').forEach(img => {
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt;
+            // Zoom to ~120% of the displayed size
+            lightboxImg.style.width = (img.getBoundingClientRect().width * 1.2) + 'px';
+            lightbox.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('is-open');
+        document.body.style.overflow = '';
+    };
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeLightbox();
+    });
+</script>
+
+</body>
+</html>

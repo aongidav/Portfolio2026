@@ -56,7 +56,7 @@
         body {
             font-family: 'Mulish', sans-serif;
             font-size: var(--text-base);
-            line-height: var(--leading-loose);
+            line-height: var(--leading-snug);
             color: var(--text);
             background: var(--bg);
             transition: background 0.6s ease, color 0.6s ease;
@@ -138,7 +138,7 @@
             font-size: var(--text-base);
             margin-top: 2rem;
             line-height: var(--leading-snug);
-            color: var(--text);
+            color: var(--text-muted);
         }
 
         .about p + p {
@@ -199,17 +199,25 @@
             margin-top: 0.5rem;
         }
 
+        /* Per-image knobs (override inline on the box or img):
+           --img-scale (img width) · --img-align (vertical) · --img-pad-top · --box-bg */
         .section-row--full .project-placeholder {
             width: 100%;
             aspect-ratio: 16 / 9;
-            background: #FFFFFF;
+            background: var(--box-bg, #FFFFFF);
             position: relative;
             overflow: hidden;
             cursor: pointer;
             display: flex;
-            align-items: flex-start;
+            align-items: var(--img-align, flex-start);
             justify-content: center;
-            padding-top: 2.5rem;
+            padding-top: var(--img-pad-top, 2.5rem);
+        }
+
+        /* Convenience modifier (same as --img-align: center; --img-pad-top: 0) */
+        .section-row--full .project-placeholder.is-centered {
+            align-items: center;
+            padding-top: 0;
         }
 
         .section-row--full .project-placeholder img {
@@ -218,14 +226,18 @@
             display: block;
             position: relative;
             z-index: 1;
+            /* Temporarily disabled — shadow + zoom
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.13);
             transition: box-shadow 0.4s ease, transform 0.4s ease;
+            */
         }
 
+        /* Temporarily disabled — shadow + zoom
         .section-row--full .project-placeholder:hover img {
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
             transform: scale(1.025);
         }
+        */
 
         .section-row--full .caption {
             margin-top: 0.85rem;
@@ -238,7 +250,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: #EDEAE5;
+            background: var(--box-bg, #FFFFFF);
             opacity: 0;
             transition: opacity 0.4s ease;
         }
@@ -360,12 +372,26 @@
         .project p {
             font-size: var(--text-sm);
             margin-bottom: 0.6rem;
-            color: var(--text);
+            color: var(--text-muted);
         }
 
         .project-role {
             font-style: normal;
             font-weight: var(--weight-bold);
+        }
+
+        .case-study-link {
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: var(--text-sm);
+            font-weight: var(--weight-semibold);
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .case-study-link:hover {
+            color: var(--accent);
         }
 
         .project-image {
@@ -376,22 +402,42 @@
 
         /* ── Principles ── */
         .principles-list {
-            list-style: disc;
-            padding-left: 1.1rem;
+            list-style: none;
+            padding-left: 0;
         }
 
         .principles-list li {
-            margin-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .principles-list li:last-child {
+            margin-bottom: 0;
         }
 
         /* ── Process ── */
         .process-list {
-            list-style: decimal;
-            padding-left: 1.1rem;
+            list-style: none;
+            padding-left: 0;
         }
 
         .process-list li {
-            margin-bottom: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .process-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-title {
+            display: block;
+            font-weight: var(--weight-semibold);
+            color: var(--text);
+        }
+
+        .step-desc {
+            display: block;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
         }
 
         /* ── Experience ── */
@@ -518,11 +564,12 @@
         <div class="section-content">
             <div class="projects">
 
-                <div class="project">
+                <div class="project" style="--box-bg: #E2F4FD">
                     <div class="project-text">
                         <h3>Breeze Studio (AI)</h3>
                         <p class="project-role">Design Manager | Shipped September 2025</p>
-                        <p>Led a team of designers to build HubSpot's first dedicated agent-building platform from the ground up, a single surface where customers can install, customize, or build their own AI agents, shipped at Inbound 2024.</p>
+                        <p>Led a team of designers to build HubSpot's first dedicated agent-building platform from the ground up, a single surface where customers can install, customize, or build their own AI agents, shipped at Inbound 2025.</p>
+                        <a class="case-study-link" href="case-study-breeze.html">View case study →</a>
                     </div>
                     <div class="carousel">
                         <div class="carousel-viewport">
@@ -548,38 +595,26 @@
                     <div class="project-text">
                         <h3>Custom Assistants (AI)</h3>
                         <p class="project-role">Design Manager | Shipped September 2025</p>
-                        <p>Defining the interaction model and shipping a working MVP in four weeks for HubSpot's first customer-configurable chat assistant, the foundation for Custom Assistants launched at Inbound 2025.</p>
+                        <p>Defined the information architecture for HubSpot's first configurable AI assistant, how agents and Copilot coexist in the sidepanel and where chat history lives. Working with a PM, engineer, and directors of product and engineering, shipped an MVP in four weeks and handed the foundation to the designer who took it to launch at Inbound 2025.</p>
                     </div>
                     <div class="carousel">
                         <div class="carousel-viewport">
                             <div class="carousel-track">
                                 <div class="carousel-slide">
-                                    <div class="project-placeholder"><img src="assets/images/projects/custom-assistants/wireframes-1.png" alt="Custom Assistants — wireframes"></div>
-                                    <p class="caption">Early wireframes</p>
-                                </div>
-                                <div class="carousel-slide">
-                                    <div class="project-placeholder"><img src="assets/images/projects/custom-assistants/custom-assistants-paradigms.png" alt="Custom Assistants — paradigms"></div>
-                                    <p class="caption">Interaction paradigms</p>
+                                    <div class="project-placeholder"><img src="assets/images/projects/custom-assistants/assistant-open.png" alt="Custom Assistants — assistant in action"></div>
+                                    <p class="caption">Assistant in action</p>
                                 </div>
                                 <div class="carousel-slide">
                                     <div class="project-placeholder"><img src="assets/images/projects/custom-assistants/assistant-builder.png" alt="Custom Assistants — builder"></div>
                                     <p class="caption">Assistant builder</p>
                                 </div>
                                 <div class="carousel-slide">
-                                    <div class="project-placeholder"><img src="assets/images/projects/custom-assistants/assistant-open.png" alt="Custom Assistants — assistant open"></div>
-                                    <p class="caption">Assistant in action</p>
+                                    <div class="project-placeholder is-centered"><img src="assets/images/projects/custom-assistants/ia-concepts.png" alt="Custom Assistants — IA exploration" style="--img-scale: 100%"></div>
+                                    <p class="caption">IA exploration</p>
                                 </div>
                                 <div class="carousel-slide">
-                                    <div class="project-placeholder"><img src="assets/images/projects/custom-assistants/assistant-mvp-1.png" alt="Custom Assistants — MVP 1"></div>
-                                    <p class="caption">MVP — concept 1</p>
-                                </div>
-                                <div class="carousel-slide">
-                                    <div class="project-placeholder"><img src="assets/images/projects/custom-assistants/assistant-mvp-2.png" alt="Custom Assistants — MVP 2"></div>
-                                    <p class="caption">MVP — concept 2</p>
-                                </div>
-                                <div class="carousel-slide">
-                                    <div class="project-placeholder"><img src="assets/images/projects/custom-assistants/assistant-mvp-3.png" alt="Custom Assistants — MVP 3"></div>
-                                    <p class="caption">MVP — concept 3</p>
+                                    <div class="project-placeholder is-centered"><img src="assets/images/projects/custom-assistants/Sidepanel.png" alt="Custom Assistants — sidepanel" style="--img-scale: 100%"></div>
+                                    <p class="caption">Sidepanel</p>
                                 </div>
                             </div>
                         </div>
@@ -699,14 +734,26 @@
     <div class="section-row">
         <div class="section-label">
             <h2>Principles</h2>
-            <p>Some principles that have guided my career.</p>
+            <p>A few principles I find myself returning to, regardless of the problem.</p>
         </div>
         <div class="section-content">
             <ul class="principles-list">
-                <li>Customer value over velocity. Shipping fast feels good. Shipping something that works feels better.</li>
-                <li>Design systems over one-off solutions. A good pattern used everywhere beats a perfect solution used once.</li>
-                <li>Standards over advocacy. Baking quality in beats fighting for it later.</li>
-                <li>Build to find clarity. When no one knows the answer, making something usually finds it.</li>
+                <li>
+                    <span class="step-title">Ship things that work.</span>
+                    <span class="step-desc">Scope it small enough to learn. Build it solid enough to scale.</span>
+                </li>
+                <li>
+                    <span class="step-title">Think in patterns, not solutions.</span>
+                    <span class="step-desc">A well-structured solution scales to users and use cases you didn't design for.</span>
+                </li>
+                <li>
+                    <span class="step-title">Define what good looks like.</span>
+                    <span class="step-desc">Standards you can point to outlast the ones you carry in your head.</span>
+                </li>
+                <li>
+                    <span class="step-title">Build to find clarity.</span>
+                    <span class="step-desc">A rough prototype surfaces more than a long discussion, and nothing aligns a room faster than something you can react to.</span>
+                </li>
             </ul>
         </div>
     </div>
@@ -715,16 +762,30 @@
     <div class="section-row">
         <div class="section-label">
             <h2>Current working process</h2>
-            <p>I reached this process through years of experimenting with different AI tools.</p>
+            <p>A toolkit developed over 15 years, shaped more recently by AI. What I reach for depends on the problem.</p>
         </div>
         <div class="section-content">
             <ol class="process-list">
-                <li>Data gathering, insights, explorations, competitive/non-competitive/adjacent</li>
-                <li>Consult LLM to build domain knowledge, fill gaps, ask for POVs (Example)</li>
-                <li>Generate a wireframe (ascii lofi or visually rich depending on the requirements)</li>
-                <li>Map flows/broader system interactions in drawing tool (Figma)</li>
-                <li>Share with team on Loom for feedback</li>
-                <li>Hand over to designer on team / created detailed mocks in Figma using Design System</li>
+                <li>
+                    <span class="step-title">Understand the domain</span>
+                    <span class="step-desc">Start by identifying the gaps. The goal is to build enough knowledge to ask the right questions. AI has made it easier to start, particularly for domain knowledge, competitive context and early POVs.</span>
+                </li>
+                <li>
+                    <span class="step-title">Abstract the system</span>
+                    <span class="step-desc">Understand what's underneath the problem: data models, constraints, patterns. Wireframes or Figma for spatial relationships, a doc when the work is naming entities and establishing taxonomy.</span>
+                </li>
+                <li>
+                    <span class="step-title">Shape a prototype</span>
+                    <span class="step-desc">Once the system makes sense, start building. Usually in Claude Code nowadays. It clarifies thinking and produces something concrete to share with a team.</span>
+                </li>
+                <li>
+                    <span class="step-title">Calibrate fidelity to the collaboration</span>
+                    <span class="step-desc">The output depends on my role and how the team is working together. Sometimes detailed Figma, sometimes rough screens polished later with engineering.</span>
+                </li>
+                <li>
+                    <span class="step-title">Test a point of view, not an open question</span>
+                    <span class="step-desc">A small, considered MVP to real users beats testing a prototype if the timeline allows. When testing early, it's to validate a direction not discover one. It's something I feel strongly about and spend a lot of time developing in my team.</span>
+                </li>
             </ol>
         </div>
     </div>
@@ -815,10 +876,8 @@
         const projectEl = carousel.closest('.project');
         let index = 0;
 
-        const SLIDE_WIDTH = 720;
+        const SLIDE_WIDTH = 960; // 16:9 → 540px tall: a safe size on most screens
         const update = () => {
-            // Fixed-width slides, left edge of the active one aligned with the
-            // description text (capped to the content column on small screens).
             const rect = projectEl.getBoundingClientRect();
             const width = Math.min(SLIDE_WIDTH, rect.width);
             slides.forEach(s => s.style.flex = `0 0 ${width}px`);
