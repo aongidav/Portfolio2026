@@ -315,6 +315,16 @@
         }
 
         /* Lightbox overlay */
+        @keyframes cs-lightbox-in {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes cs-img-in {
+            from { opacity: 0; transform: scale(0.96); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
         .cs-lightbox {
             position: fixed;
             inset: 0;
@@ -326,10 +336,15 @@
             overflow: auto;
             cursor: zoom-out;
             padding: 2rem;
+            /* flex centering */
+            justify-content: center;
+            align-items: center;
+            min-height: 100%;
         }
 
         .cs-lightbox.is-open {
-            display: block;
+            display: flex;
+            animation: cs-lightbox-in 0.2s ease;
         }
 
         .cs-lightbox img {
@@ -337,6 +352,7 @@
             margin: auto;
             border-radius: 4px;
             max-width: calc(100vw - 4rem);
+            animation: cs-img-in 0.25s ease;
         }
 
         /* Video (click to play, with controls + poster) */
