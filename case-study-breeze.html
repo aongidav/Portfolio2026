@@ -16,6 +16,7 @@
             --border-soft:  rgba(255,255,255,0.2);
             --bg-subtle:    rgba(255,255,255,0.08);
             --accent:       #979797;
+            --link:         #F5C542;
 
             /* ── Type scale (16px base · ~1.2 ratio) ── */
             --text-xs:    0.75rem;   /* 12px */
@@ -55,7 +56,7 @@
         }
 
         a {
-            color: var(--text);
+            color: var(--link);
             text-decoration: underline;
         }
 
@@ -195,6 +196,22 @@
             gap: 1rem;
         }
 
+        .cs-grid-4 {
+            margin-top: 3rem;
+            margin-bottom: 0;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .cs-grid-4 figure {
+            margin: 0;
+        }
+
+        .is-temp-hidden {
+            display: none;
+        }
+
         .cs-figure-box--portrait {
             aspect-ratio: 9 / 16;
         }
@@ -219,11 +236,11 @@
                 radial-gradient(120% 120% at 100% 100%, #fac9e4 0%, rgba(250, 201, 228, 0) 50%);
         }
 
-        /* Logo, vertically centred, ~20% from the right edge */
+        /* Logo, vertically centred in the gap between laptop and right edge */
         .device-logo {
             position: absolute;
             top: 50%;
-            right: 20%;
+            right: 10%;
             transform: translateY(-50%);
             width: 15%;
             height: auto;
@@ -235,8 +252,9 @@
             position: absolute;
             display: block;
             width: 82%;
-            left: 6%;
-            top: -8%;              /* top of the laptop cut off by the box */
+            left: calc(-16.4% + 50px); /* crop roughly 20% of the image off the left edge */
+            top: 50%;
+            transform: translateY(-50%);
             filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.22));
         }
 
@@ -262,6 +280,29 @@
             background: #fff;
             border-radius: 4px;
             padding: 1rem;
+        }
+
+        .cs-imgbox--flush {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .cs-imgbox--peek {
+            position: relative;
+            max-height: 440px;
+            overflow: hidden;
+        }
+
+        .cs-imgbox--peek::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 72px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(18, 20, 30, 0.16));
+            box-shadow: inset 0 -18px 24px rgba(18, 20, 30, 0.12);
+            pointer-events: none;
         }
 
         .cs-imgbox .cs-img {
@@ -295,6 +336,7 @@
             display: block;
             margin: auto;
             border-radius: 4px;
+            max-width: calc(100vw - 4rem);
         }
 
         /* Video (click to play, with controls + poster) */
@@ -332,9 +374,7 @@
             font-size: var(--text-sm);
             font-style: italic;
             color: var(--text-muted);
-            max-width: 680px;
-            margin-left: auto;
-            margin-right: auto;
+            text-align: center;
         }
 
         /* ── Closing note ── */
@@ -363,10 +403,90 @@
             }
 
             /* Stack image rows on mobile */
-            .cs-row {
+            .cs-row,
+            .cs-grid-4 {
                 grid-auto-flow: row;
                 grid-auto-columns: auto;
+                grid-template-columns: 1fr;
             }
+        }
+
+        /* ── Case study gate ── */
+        .cs-gate {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: #12141E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .cs-gate[hidden] {
+            display: none;
+        }
+
+        .cs-gate-card {
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .cs-gate-card > p {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .cs-gate-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .cs-gate-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: var(--text-base);
+            padding: 0.75rem 1rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .cs-gate-input:focus {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .cs-gate-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .cs-gate-btn {
+            width: 100%;
+            background: var(--text);
+            color: var(--bg);
+            border: none;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: var(--text-sm);
+            font-weight: var(--weight-semibold);
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: opacity 0.15s;
+        }
+
+        .cs-gate-btn:hover {
+            opacity: 0.85;
+        }
+
+        .cs-gate-error {
+            font-size: var(--text-sm);
+            color: rgba(255, 120, 120, 0.9);
         }
     </style>
 </head>
@@ -380,8 +500,8 @@
     <div class="cs-hero">
         <h1 class="cs-title">Breeze Studio</h1>
         <p class="cs-subtitle">Building HubSpot's agent platform from the ground up</p>
-        <p class="cs-meta">Design Manager + IC Designer, September 2024 – September 2025</p>
-        <p class="cs-role"><strong>Role:</strong> Design Manager. Led direction-setting, cross-functional alignment, and IC work on the runtime experience, while coaching the design team through a zero-to-one build.</p>
+        <p class="cs-meta">Design Manager/IC Designer, September 2024 – September 2025</p>
+        <p class="cs-role"><strong>Role:</strong> Design Manager and IC contributor. Set direction, coached the design team, and did hands-on design work across the runtime experience, output quality, and core supporting pages throughout a zero-to-one build.</p>
     </div>
 
     <!-- Lead image: angled laptop mockup cropped by a containing box -->
@@ -394,84 +514,85 @@
 
     <!-- Context -->
     <h2>Context</h2>
-    <p class="cs-body">By late 2024, HubSpot had built multiple AI agents across different backends. They worked in isolation, with no awareness of each other and no shared infrastructure. Engineering proposed consolidating all agents onto a single platform, with Breeze Studio as the frontend for building, running, and managing them. Internal teams could migrate existing agents and build future ones on the platform, and eventually customers could do the same. From a design perspective this was zero to one: even though we had agents, we had no existing prior art for building and running them.</p>
+    <p class="cs-body">By late 2024, HubSpot had built multiple AI agents across different backends. They worked in isolation, with no awareness of each other and no shared infrastructure. Engineering proposed consolidating all agents onto a single platform, with Breeze Studio as the frontend for building, running, and managing them. Internal teams could migrate existing agents and build future ones on the platform, and eventually customers could do the same. From a design perspective this was zero to one: even though we had agents, we had no existing prior art for building and running them. The opportunity was to create a consistent experience across all agents through unified patterns for discovery, installation, setup and execution.</p>
 
     <!-- The problem -->
     <h2>The problem</h2>
     <ul class="cs-list">
+        <li>We had individual agents but no unified experience for discovering, installing, setting up or running them</li>
         <li>Customers had access to agents but those agents had no awareness of each other. A Prospecting Agent and a Data Agent, for example, couldn't share context or work together</li>
-        <li>Internal product teams were reluctant to migrate to a unified platform and protective over their existing domains</li>
-        <li>We had no existing design patterns for building and running agents</li>
         <li>The scope was large and interdependent: building, running, tools, knowledge, and marketplace, developed across multiple teams simultaneously</li>
+        <li>Internal product teams were reluctant to migrate to a unified platform and protective over their existing domains</li>
         <li>Product strategy shifted constantly as stakeholders debated whether to build primarily for internal teams or for customers</li>
     </ul>
 
     <!-- My role -->
     <h2>My role</h2>
-    <p class="cs-body">I was design manager for the project but operated as a player coach throughout. I set design direction, ran alignment across a growing team of designers and PMs, coached my reports, and at key moments stepped in as IC to move the work forward or raise the quality bar. The scope grew to include agent building, agent runtime, tools, knowledge, marketplace, and the connective tissue threading it all together.</p>
+    <p class="cs-body">Having recently moved from a Principal Designer role, I brought my IC skillset to this position alongside the management responsibilities. I set design direction, ran cross-functional alignment, coached my reports, and stepped in as IC when a surface needed direction or a team was spinning up without a dedicated designer. The scope grew to include agent building, runtime, tools, knowledge, and marketplace.</p>
 
     <!-- Setting direction -->
     <h2>Setting direction</h2>
     <p class="cs-body">With so many interdependent surface areas in motion, we risked the end-to-end experience becoming fragmented. To address this I:</p>
     <ul class="cs-list">
-        <li>Worked with my report on the high level IA early, providing direction and feedback on how the key surfaces related to each other: the agent builder, marketplace, Copilot, and Agent Studio</li>
         <li>Called for a weekly end-to-end alignment session, co-running with the director of product</li>
-        <li>Created a lo-fi end-to-end prototype in Figma to guide the team on what we were working toward, building up fidelity over time</li>
-        <li>Brought in a second designer to take over and continue refining the prototype as the scope grew</li>
+        <li>Worked with the team on the high level IA, providing direction and feedback on how the key surfaces related to each other: the agent builder, marketplace, Copilot, and Agent Studio</li>
+        <li>Brought in a dedicated designer to own the end-to-end Figma, which evolved into a prototype as fidelity increased over time</li>
     </ul>
+    <p class="cs-body">During this phase we integrated custom assistants into the end-to-end experience. I had designed the MVP for custom assistants prior to this project; the owning designer built it out into the full experience inside Breeze Studio.</p>
 
     <!-- Early IA wireframe -->
-    <figure class="cs-figure">
-        <div class="cs-imgbox">
+    <figure class="cs-figure cs-wide">
+        <div class="cs-imgbox cs-imgbox--flush">
             <img class="cs-img cs-zoomable" src="assets/images/case-studies/breeze-studio/early-ia.png" alt="Early Breeze Studio IA wireframe">
         </div>
+        <figcaption class="cs-caption">Early IA work mapping how the agent builder, marketplace, Copilot, and Agent Studio related to each other.</figcaption>
+    </figure>
+
+    <figure class="cs-figure cs-wide">
+        <div class="cs-imgbox cs-imgbox--flush cs-imgbox--peek">
+            <img class="cs-img cs-zoomable" src="assets/images/case-studies/breeze-studio/end-to-end.png" alt="Breeze Studio end-to-end prototype">
+        </div>
+        <figcaption class="cs-caption">Example of an end-to-end Figma used to align designers, PMs, engineering, and leadership around the Inbound 2025 direction.</figcaption>
     </figure>
 
     <p class="cs-body">The prototype became a key alignment tool: used internally to spot gaps, shared with engineering as a north star, and shown at an all-product meeting that gave people a clear picture of what we were building toward for Inbound 2025. Until that point, the scale of the scope had made progress hard to see. The weekly session continued beyond the initial build, used to drive further improvements and align dependent teams such as marketplace and navigation.</p>
 
-    <!-- 3 horizontal images -->
-    <div class="cs-row cs-wide">
-        <div class="cs-figure-box"><span>Image</span></div>
-        <div class="cs-figure-box"><span>Image</span></div>
-        <div class="cs-figure-box"><span>Image</span></div>
-    </div>
-
-    <!-- Tools & knowledge video -->
-    <figure class="cs-figure">
-        <video class="cs-video" controls preload="metadata" poster="assets/videos/case-studies/breeze-studio/tools-knowledge-poster.jpg">
-            <source src="assets/videos/case-studies/breeze-studio/tools-knowledge.mp4" type="video/mp4">
-        </video>
-    </figure>
-
-    <!-- The runtime -->
-    <h2>The runtime</h2>
+    <!-- Agent Runtime -->
+    <h2>Agent Runtime</h2>
     <p class="cs-body">The initial runtime design used collapsible panels. We felt this could be improved: panels opening and closing automatically created too much movement, making it hard for users to orient themselves. As we were spinning up a new team and hiring a dedicated designer, I stepped in as IC to explore a different direction.</p>
     <p class="cs-body">To address this I:</p>
     <ul class="cs-list">
         <li>Moved to a three-panel layout: previous runs on the left, agent reasoning in the center, and an output panel on the right that expanded when results were ready</li>
-        <li>Defined the runtime as a non-conversational surface, with a prompt-to-modify interaction that acted on the output rather than opening a conversation</li>
+        <li>The runtime was deliberately non-conversational. At the time, Copilot was the sole conversational surface by design. Rather than defaulting to chat, I created a prompt-to-modify interaction: users could iterate on agent output through a prompt input without the agent itself conversing</li>
+        <li>Created a quick <a href="https://agent-runtime-experience.vercel.app/" target="_blank">prototype</a> to share the direction with the team</li>
         <li>Pushed for elevated output quality early, creating a rough visual and reference material to show what a structured, report-style output could look like</li>
     </ul>
-    <p class="cs-body">The designer who joined the runtime team took that direction and executed it well.</p>
+    <p class="cs-body">The direction set during this period carried through into what shipped at Inbound 2025.</p>
 
+    <figure class="cs-figure">
+        <div class="cs-imgbox cs-imgbox--flush">
+            <img class="cs-img cs-zoomable" src="assets/images/case-studies/breeze-studio/runtime-existing.png" alt="Existing runtime design with collapsible panels">
+        </div>
+        <figcaption class="cs-caption">Initial design with collapsible sections.</figcaption>
+    </figure>
+    <figure class="cs-figure">
+        <div class="cs-imgbox cs-imgbox--flush">
+            <img class="cs-img cs-zoomable" src="assets/images/case-studies/breeze-studio/runtime-wireframe.png" alt="Runtime wireframe showing the three-panel layout">
+        </div>
+        <figcaption class="cs-caption">Three-column layout to reveal agent thought and reasoning.</figcaption>
+    </figure>
     <figure class="cs-figure">
         <video class="cs-video" controls preload="metadata" poster="assets/videos/case-studies/breeze-studio/runtime-poster.jpg">
             <source src="assets/videos/case-studies/breeze-studio/runtime.mp4" type="video/mp4">
         </video>
+        <figcaption class="cs-caption">Shipped runtime experience.</figcaption>
     </figure>
     <figure class="cs-figure">
         <video class="cs-video" controls preload="metadata" poster="assets/videos/case-studies/breeze-studio/runtime-refine-poster.jpg">
             <source src="assets/videos/case-studies/breeze-studio/runtime-refine.mp4" type="video/mp4">
         </video>
+        <figcaption class="cs-caption">Querying the output through prompting.</figcaption>
     </figure>
-    <figure class="cs-figure">
-        <div class="cs-figure-box"><span>Before / after: collapsible panels vs. three-panel layout</span></div>
-    </figure>
-    <figure class="cs-figure">
-        <div class="cs-figure-box"><span>Examples of elevated output design</span></div>
-    </figure>
-    <!-- Author note: revisit the craft paragraph below once the elevated-output visuals are in place. -->
-
     <!-- Coaching and craft -->
     <h2>Coaching and craft</h2>
     <p class="cs-body">The design team was working in new territory with a large and growing scope. My coaching focused on two things:</p>
@@ -479,57 +600,147 @@
         <li>Helping designers develop and defend a point of view. Under pressure, the tendency is to present multiple options without a clear recommendation. I worked with my reports on presenting one to two directions maximum, each with a clear rationale, and on holding that position under engineering pushback</li>
         <li>Distinguishing between feasibility constraints and timeline constraints. Often the design intent did not depend on the part engineering was pushing back on</li>
     </ul>
-    <p class="cs-body">On craft, I worked to keep the quality bar visible throughout. That meant regular design reviews and 1:1 feedback sessions, bug bashes as we got closer to launch, and Looms shared with both design and engineering showing what good looked like and where we could improve. Competitor examples were a regular reference point, used to show what better could look like rather than just describing it.</p>
-    <!-- Author note: revisit this paragraph with visual examples of how craft was elevated once artefacts are gathered. -->
+    <p class="cs-body">On craft, I worked to keep the quality bar visible throughout. That meant regular design reviews and 1:1 feedback sessions, bug bashes as we got closer to launch, and Looms shared with both design and engineering showing what good looked like and where we could improve. Competitor products were a reference point for understanding how the industry was defining concepts like tools, skills, and agents, not for setting our design direction.</p>
 
-    <!-- 1 image -->
-    <figure class="cs-figure cs-wide">
-        <div class="cs-figure-box"><span>Image</span></div>
-    </figure>
+    <div class="cs-grid-4 cs-wide">
+        <figure>
+            <div class="cs-imgbox cs-imgbox--flush">
+                <img class="cs-img cs-zoomable" src="assets/images/case-studies/breeze-studio/loom-design-direction-runtime.png" alt="Loom design direction for Breeze Studio runtime">
+            </div>
+        </figure>
+        <figure>
+            <div class="cs-imgbox cs-imgbox--flush">
+                <img class="cs-img cs-zoomable" src="assets/images/case-studies/breeze-studio/loom-mid-fi-runtime.png" alt="Loom mid-fidelity runtime feedback">
+            </div>
+        </figure>
+    </div>
+    <p class="cs-caption cs-wide">Using Loom to make runtime design direction and mid-fidelity progress visible to design and engineering.</p>
 
     <!-- Protecting focus -->
     <h2>Protecting focus</h2>
-    <p class="cs-body">As we approached Inbound, supporting pages still needed to be designed for cohesion: an overview page and an intro and onboarding experience. Rather than pull my designers away from the core work, I took these on myself, used design system frameworks and templates to move quickly, and liaised directly with engineering to get them built under a time crunch. This kept the team focused on the core building and runtime experience.</p>
+    <p class="cs-body">As we were building Breeze Studio, HubSpot was running a broader cohesion initiative to align experiences across its suite of studio products. Recognising that this would require a dedicated intro page for Breeze Studio, I made the call to take this on myself rather than pull the team away from the core building and runtime work. Using design system frameworks and templates I moved quickly, liaising directly with engineering to get it built without disrupting the team's focus on what mattered most.</p>
+
+    <figure class="cs-figure cs-wide">
+        <div class="cs-imgbox cs-imgbox--flush cs-imgbox--peek" style="aspect-ratio: 2880 / 1900; max-height: none;">
+            <img class="cs-img cs-zoomable" src="assets/images/case-studies/breeze-studio/breeze-intro.png" alt="Breeze Studio overview page">
+        </div>
+        <figcaption class="cs-caption">Breeze Studio Intro Page.</figcaption>
+    </figure>
 
     <!-- 2 horizontal images -->
-    <div class="cs-row cs-wide">
-        <div class="cs-figure-box"><span>Image</span></div>
-        <div class="cs-figure-box"><span>Image</span></div>
+    <div class="cs-row cs-wide is-temp-hidden">
+        <figure>
+            <div class="cs-figure-box"><span>Image</span></div>
+        </figure>
+        <figure>
+            <div class="cs-figure-box"><span>Image</span></div>
+        </figure>
     </div>
 
-    <!-- Outcome -->
-    <h2>Outcome</h2>
-    <p class="cs-body">Breeze Studio shipped at Inbound 2025. Key results:</p>
+    <!-- What we shipped -->
+    <h2>What we shipped</h2>
+    <p class="cs-body">At Inbound 2025, Breeze Studio launched with:</p>
     <ul class="cs-list">
-        <li>Custom assistants, whose MVP I had designed earlier, were a particular success, giving customers a clear entry point into agent building</li>
-        <li>Shortly after launch we opened a beta for users to create their own custom agents</li>
+        <li><strong>Agent builder:</strong> create and configure agents from scratch or from marketplace templates</li>
+        <li><strong>Agent runtime:</strong> run agents and iterate on output through a prompt-to-modify interaction</li>
+        <li><strong>Custom assistants:</strong> configurable AI experiences for specific tasks or workflows. I had designed the MVP prior to this project; the owning designer built it out into the full experience inside Breeze Studio</li>
+        <li><strong>Marketplace:</strong> discover and install HubSpot-built agents and custom assistants</li>
     </ul>
-    <p class="cs-body">The fuller vision, getting internal teams to migrate their existing flagship agents onto the platform, was still in progress. Some of that was functional and some of it was organisational, requiring resolution above our level.</p>
 
-    <!-- Custom assistants video -->
+    <figure class="cs-figure">
+        <video class="cs-video" controls preload="metadata" poster="assets/videos/case-studies/breeze-studio/tools-knowledge-poster.jpg">
+            <source src="assets/videos/case-studies/breeze-studio/tools-knowledge.mp4" type="video/mp4">
+        </video>
+        <figcaption class="cs-caption">Agent Builder.</figcaption>
+    </figure>
     <figure class="cs-figure">
         <video class="cs-video" controls preload="metadata" poster="assets/videos/case-studies/breeze-studio/custom-assistant-poster.jpg">
             <source src="assets/videos/case-studies/breeze-studio/custom-assistant.mp4" type="video/mp4">
         </video>
+        <figcaption class="cs-caption">Custom Assistants.</figcaption>
     </figure>
 
+    <!-- Outcome -->
+    <h2>Outcome</h2>
+    <p class="cs-body">Breeze Studio launched publicly at Inbound 2025, HubSpot's annual conference.</p>
+    <ul class="cs-list">
+        <li>Grew from <strong>zero to 2.3k</strong> customer portals actively using a Breeze Studio agent weekly</li>
+        <li><strong>116k</strong> weekly agent runs across the platform</li>
+        <li><strong>16k</strong> weekly custom assistant interactions</li>
+        <li>Shortly after launch we opened a private beta for custom agent creation</li>
+    </ul>
+    <p class="cs-body">The platform we built became the foundation for what came next. The vision of a unified platform where all agents and automations can be discovered, built, and managed in one place is now being realised.</p>
+
     <!-- 3 vertical images -->
-    <div class="cs-row cs-wide">
-        <div class="cs-figure-box cs-figure-box--portrait"><span>Image</span></div>
-        <div class="cs-figure-box cs-figure-box--portrait"><span>Image</span></div>
-        <div class="cs-figure-box cs-figure-box--portrait"><span>Image</span></div>
+    <div class="cs-row cs-wide is-temp-hidden">
+        <figure>
+            <div class="cs-figure-box cs-figure-box--portrait"><span>Image</span></div>
+        </figure>
+        <figure>
+            <div class="cs-figure-box cs-figure-box--portrait"><span>Image</span></div>
+        </figure>
+        <figure>
+            <div class="cs-figure-box cs-figure-box--portrait"><span>Image</span></div>
+        </figure>
     </div>
 
     <!-- Reflection -->
     <h2>Reflection</h2>
-    <p class="cs-body">Building a platform from zero in a space moving as fast as AI agents required constant recalibration. The biggest lesson was knowing when to push for strategic clarity and when to design forward anyway. There are always simplifications to be found, and that work continues.</p>
+    <p class="cs-body">Building a platform from zero in a space moving as fast as AI agents required constant recalibration. In hindsight, designing and building through ambiguity was the right call. Waiting for perfect strategic clarity would have meant not shipping at all.</p>
+    <p class="cs-body">One thing this project reinforced is that debate around concepts and terminology is healthy and necessary. The challenge is knowing when to close the debate, align on a direction, and commit. Without that discipline it is easy to keep moving the goalposts.</p>
 
     <p class="cs-note">This project continues. In January 2026, Breeze Studio began unification with HubSpot's automation platform. In June 2026 we launched a private beta to capture customer feedback on the new builder and management experience.</p>
 
+
+</div>
+
+<!-- Case study gate -->
+<div class="cs-gate" id="cs-gate">
+    <div class="cs-gate-card">
+        <p>Enter password to view this case study</p>
+        <form class="cs-gate-form" id="cs-gate-form">
+            <input class="cs-gate-input" id="cs-gate-password" type="password" placeholder="Password" autocomplete="current-password">
+            <button class="cs-gate-btn" type="submit">View case study</button>
+            <p class="cs-gate-error" id="cs-gate-error" hidden>Incorrect password</p>
+        </form>
+    </div>
 </div>
 
 <!-- Zoom lightbox -->
 <div class="cs-lightbox" id="lightbox"><img alt=""></div>
+
+<script>
+    // ── Gate ──
+    const csGate = document.getElementById('cs-gate');
+
+    if (localStorage.getItem('portfolio_authed') === '1') {
+        csGate.hidden = true;
+    }
+
+    document.getElementById('cs-gate-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const password = document.getElementById('cs-gate-password').value;
+        const errorEl = document.getElementById('cs-gate-error');
+        errorEl.hidden = true;
+
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+            if (res.ok) {
+                localStorage.setItem('portfolio_authed', '1');
+                csGate.hidden = true;
+            } else {
+                errorEl.hidden = false;
+            }
+        } catch {
+            errorEl.hidden = false;
+        }
+    });
+
+</script>
 
 <script>
     const lightbox = document.getElementById('lightbox');
