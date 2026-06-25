@@ -261,6 +261,20 @@
                 radial-gradient(120% 120% at 100% 100%, #fac9e4 0%, rgba(250, 201, 228, 0) 50%);
         }
 
+        .section-row--full .project-placeholder.hs-gradient {
+            background-color: #fff8f0;
+            background-image:
+                radial-gradient(130% 130% at 0% 0%, #ff7a59 0%, rgba(255, 122, 89, 0) 48%),
+                radial-gradient(120% 120% at 100% 100%, #f5c26b 0%, rgba(245, 194, 107, 0) 50%);
+        }
+
+        .section-row--full .project-placeholder.hs-gradient::after {
+            background-color: #fff8f0;
+            background-image:
+                radial-gradient(130% 130% at 0% 0%, #ff7a59 0%, rgba(255, 122, 89, 0) 48%),
+                radial-gradient(120% 120% at 100% 100%, #f5c26b 0%, rgba(245, 194, 107, 0) 50%);
+        }
+
         .section-row--full .project-placeholder::after {
             content: "";
             position: absolute;
@@ -573,6 +587,111 @@
             }
         }
 
+        /* Work gate */
+        .section-content.work-locked {
+            position: relative;
+            max-height: 480px;
+            overflow: hidden;
+        }
+
+        .section-content.work-locked::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 220px;
+            background: linear-gradient(to bottom, transparent, var(--bg));
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .section-content.work-locked .projects {
+            filter: blur(5px);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .work-gate-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+
+        .work-gate-overlay.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .work-gate-overlay[hidden] { display: none !important; }
+
+        .work-gate-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.75rem 2rem;
+            background: rgba(18, 20, 30, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .work-gate-form p {
+            color: var(--text-muted);
+            font-size: var(--text-sm);
+            margin: 0;
+            text-align: center;
+        }
+
+        .work-gate-input {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: var(--text-sm);
+            padding: 0.5rem 0.75rem;
+            width: 200px;
+            outline: none;
+        }
+
+        .work-gate-input:focus { border-color: rgba(255,255,255,0.45); }
+
+        .work-gate-btn {
+            background: var(--text);
+            border: none;
+            border-radius: 6px;
+            color: var(--bg);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            padding: 0.5rem 1.25rem;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+
+        .work-gate-btn:disabled { opacity: 0.5; cursor: default; }
+
+        .work-gate-error {
+            color: #ff6b6b;
+            font-size: var(--text-xs);
+            margin: 0;
+            display: none;
+        }
+
+        .work-gate-error.is-visible { display: block; }
+
     </style>
 </head>
 <body>
@@ -614,6 +733,14 @@
             <h2>Work</h2>
         </div>
         <div class="section-content">
+            <div class="work-gate-overlay" id="work-gate">
+                <div class="work-gate-form">
+                    <p>This work is password protected</p>
+                    <input class="work-gate-input" id="work-gate-input" type="password" placeholder="Enter password" autocomplete="current-password" />
+                    <button class="work-gate-btn" id="work-gate-btn">View work</button>
+                    <p class="work-gate-error" id="work-gate-error">Incorrect password</p>
+                </div>
+            </div>
             <div class="projects">
 
                 <div class="project">
@@ -679,6 +806,36 @@
                         <p class="project-role">Principal Designer | Shipped June 2024</p>
                         <p>Redesigning the signup and setup flows for HubSpot's free and starter tiers as part of a broader initiative to relaunch the entry-level product experience.</p>
                         <p class="project-role">Case study coming soon</p>
+                    </div>
+                    <div class="carousel">
+                        <div class="carousel-viewport">
+                            <div class="carousel-track">
+                                <div class="carousel-slide">
+                                    <div class="project-placeholder hs-gradient" style="padding: 5% 5% 0"><img src="assets/images/projects/free-and-starter/step.png" alt="Free &amp; Starter — Step" style="--img-scale: 100%"></div>
+                                    <p class="caption">Step</p>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="project-placeholder hs-gradient" style="padding: 5% 5% 0"><img src="assets/images/projects/free-and-starter/deals-step.png" alt="Free &amp; Starter — Deals setup" style="--img-scale: 100%"></div>
+                                    <p class="caption">Deals setup</p>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="project-placeholder hs-gradient" style="padding: 5% 5% 0"><img src="assets/images/projects/free-and-starter/contacts-setup.png" alt="Free &amp; Starter — Contacts setup" style="--img-scale: 100%"></div>
+                                    <p class="caption">Contacts setup</p>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="project-placeholder hs-gradient" style="padding: 5% 5% 0"><img src="assets/images/projects/free-and-starter/prospecting.png" alt="Free &amp; Starter — Prospecting" style="--img-scale: 100%"></div>
+                                    <p class="caption">Prospecting</p>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="project-placeholder hs-gradient" style="padding: 5% 5% 0"><img src="assets/images/projects/free-and-starter/in-app1.png" alt="Free &amp; Starter — In-app 1" style="--img-scale: 100%"></div>
+                                    <p class="caption">In-app</p>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="project-placeholder hs-gradient" style="padding: 5% 5% 0"><img src="assets/images/projects/free-and-starter/in-app-2.png" alt="Free &amp; Starter — In-app 2" style="--img-scale: 100%"></div>
+                                    <p class="caption">In-app</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -915,6 +1072,60 @@
         window.addEventListener('resize', update);
         update();
     });
+</script>
+
+<script>
+(function () {
+    const sectionContent = document.querySelector('#notable-projects .section-content');
+    const overlay = document.getElementById('work-gate');
+    const input = document.getElementById('work-gate-input');
+    const btn = document.getElementById('work-gate-btn');
+    const error = document.getElementById('work-gate-error');
+
+    if (localStorage.getItem('portfolio_authed') === '1') return;
+
+    sectionContent.classList.add('work-locked');
+
+    const observer = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) overlay.classList.add('is-visible');
+    }, { threshold: 0.15 });
+    observer.observe(sectionContent);
+
+    async function attemptLogin() {
+        const password = input.value;
+        btn.disabled = true;
+        btn.textContent = '…';
+        error.classList.remove('is-visible');
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+            if (res.ok) {
+                localStorage.setItem('portfolio_authed', '1');
+                sectionContent.classList.remove('work-locked');
+                overlay.hidden = true;
+                observer.disconnect();
+            } else {
+                error.classList.add('is-visible');
+                btn.disabled = false;
+                btn.textContent = 'View work';
+                input.select();
+            }
+        } catch (e) {
+            error.classList.add('is-visible');
+            btn.disabled = false;
+            btn.textContent = 'View work';
+        }
+    }
+
+    btn.addEventListener('click', attemptLogin);
+    input.addEventListener('keydown', function (e) {
+        error.classList.remove('is-visible');
+        if (e.key === 'Enter') attemptLogin();
+    });
+})();
 </script>
 
 </body>
