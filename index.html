@@ -247,6 +247,20 @@
             color: var(--text-muted);
         }
 
+        .section-row--full .project-placeholder.breeze-gradient {
+            background-color: #fff6f0;
+            background-image:
+                radial-gradient(130% 130% at 0% 0%, #ffb88f 0%, rgba(255, 184, 143, 0) 48%),
+                radial-gradient(120% 120% at 100% 100%, #fac9e4 0%, rgba(250, 201, 228, 0) 50%);
+        }
+
+        .section-row--full .project-placeholder.breeze-gradient::after {
+            background-color: #fff6f0;
+            background-image:
+                radial-gradient(130% 130% at 0% 0%, #ffb88f 0%, rgba(255, 184, 143, 0) 48%),
+                radial-gradient(120% 120% at 100% 100%, #fac9e4 0%, rgba(250, 201, 228, 0) 50%);
+        }
+
         .section-row--full .project-placeholder::after {
             content: "";
             position: absolute;
@@ -602,7 +616,7 @@
         <div class="section-content">
             <div class="projects">
 
-                <div class="project" style="--box-bg: #E2F4FD">
+                <div class="project">
                     <div class="project-text">
                         <h3>Breeze Studio (AI)</h3>
                         <p class="project-role">Design Manager | Shipped September 2025</p>
@@ -613,15 +627,15 @@
                         <div class="carousel-viewport">
                             <div class="carousel-track">
                                 <div class="carousel-slide">
-                                    <div class="project-placeholder" style="padding: 5% 5% 0"><img src="assets/images/case-studies/breeze-studio/breeze-intro.png" alt="Breeze Studio — Intro page" style="--img-scale: 100%"></div>
+                                    <div class="project-placeholder breeze-gradient" style="padding: 5% 5% 0"><img src="assets/images/case-studies/breeze-studio/breeze-intro.png" alt="Breeze Studio — Intro page" style="--img-scale: 100%"></div>
                                     <p class="caption">Overview</p>
                                 </div>
                                 <div class="carousel-slide">
-                                    <div class="project-placeholder" style="padding: 5% 5% 0"><img src="assets/images/projects/breeze-studio/Listing.png" alt="Breeze Studio — Listing" style="--img-scale: 100%"></div>
+                                    <div class="project-placeholder breeze-gradient" style="padding: 5% 5% 0"><img src="assets/images/projects/breeze-studio/Listing.png" alt="Breeze Studio — Listing" style="--img-scale: 100%"></div>
                                     <p class="caption">Agent marketplace listing</p>
                                 </div>
                                 <div class="carousel-slide">
-                                    <div class="project-placeholder" style="padding: 5% 5% 0"><img src="assets/images/projects/breeze-studio/Builder.png" alt="Breeze Studio — Builder" style="--img-scale: 100%"></div>
+                                    <div class="project-placeholder breeze-gradient" style="padding: 5% 5% 0"><img src="assets/images/projects/breeze-studio/Builder.png" alt="Breeze Studio — Builder" style="--img-scale: 100%"></div>
                                     <p class="caption">Agent builder</p>
                                 </div>
                             </div>
@@ -639,19 +653,19 @@
                         <div class="carousel-viewport">
                             <div class="carousel-track">
                                 <div class="carousel-slide">
-                                    <div class="project-placeholder"><img src="assets/images/projects/custom-assistants/assistant-open.png" alt="Custom Assistants — assistant in action"></div>
+                                    <div class="project-placeholder breeze-gradient" style="padding: 5% 5% 0"><img src="assets/images/projects/custom-assistants/assistant-open.png" alt="Custom Assistants — assistant in action" style="--img-scale: 100%"></div>
                                     <p class="caption">Assistant in action</p>
                                 </div>
                                 <div class="carousel-slide">
-                                    <div class="project-placeholder"><img src="assets/images/projects/custom-assistants/assistant-builder.png" alt="Custom Assistants — builder"></div>
+                                    <div class="project-placeholder breeze-gradient" style="padding: 5% 5% 0"><img src="assets/images/projects/custom-assistants/assistant-builder.png" alt="Custom Assistants — builder" style="--img-scale: 100%"></div>
                                     <p class="caption">Assistant builder</p>
                                 </div>
                                 <div class="carousel-slide">
-                                    <div class="project-placeholder is-centered"><img src="assets/images/projects/custom-assistants/ia-concepts.png" alt="Custom Assistants — IA exploration" style="--img-scale: 100%"></div>
+                                    <div class="project-placeholder breeze-gradient" style="padding: 5% 5% 0"><img src="assets/images/projects/custom-assistants/ia-concepts.png" alt="Custom Assistants — IA exploration" style="--img-scale: 100%"></div>
                                     <p class="caption">IA exploration</p>
                                 </div>
                                 <div class="carousel-slide">
-                                    <div class="project-placeholder is-centered"><img src="assets/images/projects/custom-assistants/Sidepanel.png" alt="Custom Assistants — sidepanel" style="--img-scale: 100%"></div>
+                                    <div class="project-placeholder breeze-gradient" style="padding: 5% 5% 0"><img src="assets/images/projects/custom-assistants/Sidepanel.png" alt="Custom Assistants — sidepanel" style="--img-scale: 100%"></div>
                                     <p class="caption">Sidepanel</p>
                                 </div>
                             </div>
