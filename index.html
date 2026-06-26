@@ -1030,7 +1030,8 @@
             const width = Math.min(SLIDE_WIDTH, rect.width);
             slides.forEach(s => s.style.flex = `0 0 ${width}px`);
             const slide = slides[index];
-            track.style.transform = `translateX(${rect.left + 72 - slide.offsetLeft}px)`;
+            const peekOffset = index > 0 ? 72 : 0;
+            track.style.transform = `translateX(${rect.left + peekOffset - slide.offsetLeft}px)`;
             slides.forEach((s, i) => s.classList.toggle('is-active', i === index));
         };
 
