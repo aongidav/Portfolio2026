@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paddy Power World Cup iOS App 2014 — Case Study · Aonghus Davoren</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg:           #12141E;
+            --text:         #ffffff;
+            --text-muted:   rgba(255,255,255,0.7);
+            --border:       rgba(255,255,255,0.2);
+            --border-soft:  rgba(255,255,255,0.2);
+            --bg-subtle:    rgba(255,255,255,0.08);
+            --accent:       #979797;
+            --link:         #F5C542;
+
+            /* ── Type scale (16px base · ~1.2 ratio) ── */
+            --text-xs:    0.75rem;   /* 12px */
+            --text-sm:    0.875rem;  /* 14px */
+            --text-base:  1rem;      /* 16px */
+            --text-md:    1.125rem;  /* 18px */
+            --text-lg:    1.25rem;   /* 20px */
+            --text-xl:    1.5rem;    /* 24px */
+            --text-2xl:   1.875rem;  /* 30px */
+            --text-3xl:   2.5rem;    /* 40px */
+
+            /* ── Weights ── */
+            --weight-normal:   400;
+            --weight-medium:   500;
+            --weight-semibold: 600;
+            --weight-bold:     700;
+
+            /* ── Line heights ── */
+            --leading-tight: 1.3;
+            --leading-snug:  1.5;
+            --leading-relaxed: 1.65;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mulish', sans-serif;
+            font-size: var(--text-base);
+            line-height: var(--leading-snug);
+            color: var(--text);
+            background: var(--bg);
+            overflow-x: hidden;
+        }
+
+        a {
+            color: var(--link);
+            text-decoration: underline;
+        }
+
+        /* ── Case study layout ── */
+        .cs {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 6rem;
+        }
+
+        /* Narrow reading column for text; figures break out to full width */
+        .cs-back,
+        .cs-hero,
+        .cs h2,
+        .cs-body,
+        .cs-role,
+        .cs-callout,
+        .cs-note {
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ── Back link ── */
+        .cs-back {
+            display: block;
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 4rem;
+        }
+
+        .cs-back:hover {
+            color: var(--text);
+        }
+
+        /* ── Hero ── */
+        .cs-hero {
+            margin-bottom: 4rem;
+        }
+
+        .cs-title {
+            font-size: var(--text-3xl);
+            font-weight: var(--weight-semibold);
+            line-height: var(--leading-tight);
+            margin-bottom: 0.75rem;
+        }
+
+        .cs-subtitle {
+            font-size: var(--text-md);
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .cs-meta {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .cs-role {
+            font-size: var(--text-base);
+            color: var(--text-muted);
+        }
+
+        .cs-role strong {
+            color: var(--text);
+            font-weight: var(--weight-semibold);
+        }
+
+        /* ── Sections ── */
+        .cs h2 {
+            font-size: var(--text-xl);
+            font-weight: var(--weight-bold);
+            color: var(--text);
+            margin-top: 4rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .cs-body {
+            font-size: var(--text-base);
+            line-height: var(--leading-relaxed);
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .cs-list {
+            max-width: 680px;
+            margin: 0 auto 1.25rem;
+            padding-left: 1.25rem;
+            list-style: disc;
+        }
+
+        .cs-list li {
+            font-size: var(--text-base);
+            line-height: var(--leading-relaxed);
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .cs-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Callout (for emphasis) ── */
+        .cs-callout {
+            font-size: var(--text-lg);
+            line-height: var(--leading-snug);
+            color: var(--text);
+            border-left: 2px solid var(--text);
+            padding-left: 1.25rem;
+            margin-top: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* ── Figures ── */
+        .cs-figure {
+            width: 100%;
+            margin: 3rem 0;
+        }
+
+        /* Images may break out of the reading container, up to 1200px */
+        .cs-wide {
+            width: min(1200px, 100vw - 3rem);
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .is-temp-hidden {
+            display: none;
+        }
+
+        /* ── Phone screenshot grids ── */
+        .cs-phones {
+            width: min(1000px, 100vw - 3rem);
+            margin: 3rem auto;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            display: grid;
+            gap: 1.5rem;
+            justify-items: center;
+            justify-content: center; /* centre a lone fixed-width column on the page */
+        }
+
+        .cs-phones--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .cs-phones--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 720px; width: min(720px, 100vw - 3rem); }
+        .cs-phones--1 { grid-template-columns: minmax(0, 300px); }
+
+        /* Centre a lone image left over on the final row, at normal tile size */
+        .cs-phones--2 > .cs-phone:last-child:nth-child(odd) {
+            grid-column: 1 / -1;
+            justify-self: center;
+            width: calc((100% - 1.5rem) / 2);
+        }
+
+        .cs-phones--3 > .cs-phone:last-child:nth-child(3n + 1) {
+            grid-column: 1 / -1;
+            justify-self: center;
+            width: calc((100% - 3rem) / 3);
+        }
+
+        .cs-phone {
+            margin: 0;
+            width: 100%;
+        }
+
+        /* All screenshots share one fixed box; taller ones are cropped from the
+           bottom (top-aligned) and can be seen in full by zooming. */
+        .cs-phone img {
+            width: 100%;
+            aspect-ratio: 1280 / 2272; /* widest screenshot — so images only ever crop top/bottom, never the sides */
+            object-fit: cover;
+            object-position: top;
+            display: block;
+            border-radius: 14px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Click to zoom */
+        .cs-zoomable {
+            cursor: zoom-in;
+        }
+
+        /* Lightbox overlay */
+        @keyframes cs-lightbox-in {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes cs-img-in {
+            from { opacity: 0; transform: scale(0.96); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        .cs-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(18, 20, 30, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: none;
+            overflow: auto;
+            cursor: zoom-out;
+            padding: 2rem;
+            /* flex centering */
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100%;
+        }
+
+        .cs-lightbox.is-open {
+            display: flex;
+            animation: cs-lightbox-in 0.2s ease;
+        }
+
+        .cs-lightbox img {
+            display: block;
+            margin: auto;
+            border-radius: 8px;
+            max-width: calc(100vw - 4rem);
+            animation: cs-img-in 0.25s ease;
+        }
+
+        .cs-caption {
+            margin-top: 0.85rem;
+            font-size: var(--text-sm);
+            font-style: italic;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .cs-phone .cs-caption {
+            margin-top: 0.75rem;
+        }
+
+        /* ── Closing note ── */
+        .cs-note {
+            font-size: var(--text-sm);
+            font-style: italic;
+            color: var(--text-muted);
+            line-height: var(--leading-relaxed);
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 768px) {
+            .cs {
+                padding: 2.5rem 1.25rem 4rem;
+            }
+
+            .cs-back {
+                margin-bottom: 2.5rem;
+            }
+
+            .cs-title {
+                font-size: var(--text-2xl);
+            }
+
+            .cs-phones--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+            /* In the 2-col mobile layout, re-centre a lone final image */
+            .cs-phones--3 > .cs-phone:last-child:nth-child(odd) {
+                grid-column: 1 / -1;
+                justify-self: center;
+                width: calc((100% - 1.5rem) / 2);
+            }
+        }
+
+        /* ── Case study gate ── */
+        .cs-gate {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: #12141E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .cs-gate[hidden] {
+            display: none;
+        }
+
+        .cs-gate-card {
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .cs-gate-card > p {
+            font-size: var(--text-sm);
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .cs-gate-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .cs-gate-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: var(--text-base);
+            padding: 0.75rem 1rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .cs-gate-input:focus {
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .cs-gate-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .cs-gate-btn {
+            width: 100%;
+            background: var(--text);
+            color: var(--bg);
+            border: none;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: var(--text-sm);
+            font-weight: var(--weight-semibold);
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: opacity 0.15s;
+        }
+
+        .cs-gate-btn:hover {
+            opacity: 0.85;
+        }
+
+        .cs-gate-error {
+            font-size: var(--text-sm);
+            color: rgba(255, 120, 120, 0.9);
+        }
+    </style>
+</head>
+<body>
+
+<div class="cs">
+
+    <a class="cs-back" href="index.html">← Back</a>
+
+    <!-- Hero -->
+    <div class="cs-hero">
+        <h1 class="cs-title">Paddy Power World Cup iOS App 2014</h1>
+        <p class="cs-subtitle">A World Cup companion app built to feel like an event, not a betting slip</p>
+        <p class="cs-meta">Designer · Paddy Power · 2014</p>
+        <p class="cs-role"><strong>Role:</strong> Sole designer. I designed the end-to-end experience and produced all of the visual assets, including a scalable football template covering every team in the tournament. I worked with an external agency to build and ship the app in time for the 2014 World Cup.</p>
+    </div>
+
+    <!-- Lead screens -->
+    <div class="cs-phones cs-phones--3">
+        <figure class="cs-phone">
+            <img class="cs-zoomable" src="assets/images/case-studies/paddy-power-world-cup/home.png" alt="Paddy Power World Cup app — home screen">
+        </figure>
+        <figure class="cs-phone">
+            <img class="cs-zoomable" src="assets/images/case-studies/paddy-power-world-cup/market-odds.png" alt="Paddy Power World Cup app — match betting markets">
+        </figure>
+        <figure class="cs-phone">
+            <img class="cs-zoomable" src="assets/images/case-studies/paddy-power-world-cup/commentary.png" alt="Paddy Power World Cup app — live match commentary">
+        </figure>
+    </div>
+
+    <!-- Overview -->
+    <h2>Overview</h2>
+    <p class="cs-body">For the 2014 World Cup, Paddy Power wanted a standalone iOS app that brought the whole tournament into one place: live scores, match stats, commentary, line-ups, group tables, and betting markets. The brief was about capturing tournament energy without losing the Paddy Power identity. Every screen had to feel unmistakably ours while standing on its own as something built specifically for the World Cup, not a betting app with a football skin.</p>
+    <p class="cs-body">Where the core Paddy Power product was pragmatic, this was a chance to be more expressive. Full-bleed stadium photography behind every match instead of stock crests. Illustrated kits instead of plain badges. Small, playful details throughout. It stayed high-energy without tipping into gimmick.</p>
+
+    <!-- My role -->
+    <h2>My role</h2>
+    <p class="cs-body">I designed the full end-to-end experience and produced all of the visual assets. That included a scalable football template covering every team in the tournament, built so kits, crests, and colours could be swapped across fixtures without redesigning each screen from scratch. I also designed every match state, pre-match, kick-off, half-time, full-time, and post-match, along with an individual player profile view with stats, so the app held together as a single system rather than a set of one-off screens. The visual language sat alongside the core Paddy Power product but carried its own identity. I worked with an external agency who built the app; I owned the design through to launch.</p>
+
+    <!-- The visual choices -->
+    <h2>The bold choices</h2>
+    <p class="cs-body">A handful of decisions did most of the work:</p>
+    <ul class="cs-list">
+        <li><strong>Immersive match headers.</strong> Full-bleed stadium photography behind the scoreline, set large across the top. Closer to a broadcast graphic than a betting screen.</li>
+        <li><strong>Illustrated kits, not crests.</strong> As a gambling operator, we weren't able to license official team crests or badges, so real club/national badges were off the table. Instead of treating that as a workaround, I built bespoke illustrated jerseys in each team's own colours, giving instant personality and a consistent look across all 32 teams that a grid of licensed crests wouldn't have given us anyway.</li>
+        <li><strong>A high-energy palette.</strong> Acid lime-green played against Paddy Power's darker brand green. Punchy and tournament-specific, distinct from the core product.</li>
+        <li><strong>Playful details.</strong> A stylised pitch with a "PP" mark at the centre circle, goal/card/substitution icons in the commentary feed, and stats laid directly over the pitch imagery.</li>
+    </ul>
+
+    <!-- The match experience -->
+    <h2>The match experience</h2>
+    <p class="cs-body">Each match had a single home with a persistent header and a set of tabs. The header carried the score and swiped between live slides: key stats, scorers, and, when it came to it, penalties. Below, tabs moved between the parts of a match people actually cared about: market odds with Cash Out, live commentary, line-ups, and group tables. Tapping a player from the line-up opened an individual profile with their stats for the tournament.</p>
+    <p class="cs-body">That same home had to work across every state of a match, not just the 90 minutes in play: pre-match build-up, kick-off, half-time, full-time, and post-match, each with its own relevant content and betting markets.</p>
+
+    <div class="cs-phones cs-phones--2">
+        <figure class="cs-phone">
+            <img class="cs-zoomable" src="assets/images/case-studies/paddy-power-world-cup/market-odds.png" alt="Match betting markets with cash out">
+            <figcaption class="cs-caption">Betting markets with Cash Out, in the match context.</figcaption>
+        </figure>
+        <figure class="cs-phone">
+            <img class="cs-zoomable" src="assets/images/case-studies/paddy-power-world-cup/commentary.png" alt="Live text commentary with goal and booking markers">
+            <figcaption class="cs-caption">Live text commentary, with goal and booking markers.</figcaption>
+        </figure>
+        <figure class="cs-phone">
+            <img class="cs-zoomable" src="assets/images/case-studies/paddy-power-world-cup/group-tables.png" alt="Group standings with to-win-group odds">
+            <figcaption class="cs-caption">Group standings, with to-win-group odds inline.</figcaption>
+        </figure>
+        <figure class="cs-phone">
+            <img class="cs-zoomable" src="assets/images/case-studies/paddy-power-world-cup/player-profile.png" alt="Player profile showing illustrated kit and key stats">
+            <figcaption class="cs-caption">Player profiles — the illustrated kit, shirt number, and key stats.</figcaption>
+        </figure>
+        <figure class="cs-phone">
+            <img class="cs-zoomable" src="assets/images/case-studies/paddy-power-world-cup/line-ups.jpg" alt="Formation view with both starting elevens and substitutes">
+            <figcaption class="cs-caption">Formation view — both starting XIs and full substitutes list.</figcaption>
+        </figure>
+    </div>
+
+    <!-- Swipeable header -->
+    <h2>A swipeable match header</h2>
+    <p class="cs-body">Rather than splitting stats, scorers, and penalties across separate screens, they lived in the header itself, one swipe apart. It kept the most-checked information a single gesture away, no matter which tab you were on.</p>
+
+    <div class="cs-phones cs-phones--3">
+        <figure class="cs-phone">
+            <img class="cs-zoomable" src="assets/images/case-studies/paddy-power-world-cup/stats.png" alt="Match header showing key stats">
+            <figcaption class="cs-caption">Key stats.</figcaption>
+        </figure>
+        <figure class="cs-phone">
+            <img class="cs-zoomable" src="assets/images/case-studies/paddy-power-world-cup/scorers.png" alt="Match header showing scorers">
+            <figcaption class="cs-caption">Scorers.</figcaption>
+        </figure>
+        <figure class="cs-phone">
+            <img class="cs-zoomable" src="assets/images/case-studies/paddy-power-world-cup/penalties.png" alt="Match header showing penalty shootout">
+            <figcaption class="cs-caption">Penalty shootout.</figcaption>
+        </figure>
+    </div>
+
+    <!-- A scalable team template -->
+    <h2>A scalable team template</h2>
+    <p class="cs-body">The real challenge wasn't any single screen, it was scale. Without licensed crests to fall back on, every team's identity had to be built from scratch, and with 32 teams and a fixture list that changed daily, each one had to hold up for any match-up: an opening group game needed to look just as considered as the final.</p>
+    <p class="cs-body">I built the illustration system as a template: consistent kit proportions, a fixed colour structure per team, repeatable badge placement. New teams could be added without redesigning from scratch, and the whole set held together as one coherent system rather than 32 one-off illustrations.</p>
+
+    <div class="cs-phones cs-phones--1">
+        <figure class="cs-phone">
+            <img class="cs-zoomable" src="assets/images/case-studies/paddy-power-world-cup/home.png" alt="Home screen showing the World Cup visual template">
+        </figure>
+    </div>
+
+    <!-- Reflection -->
+    <h2>Reflection</h2>
+    <p class="cs-body">Looking back, this is some of the most fun I've had with visual design. A fixed tournament, 32 teams, a hard deadline, and a brand to both honour and step outside of: those constraints forced real decisions instead of open-ended exploration. The template system is what made the bold choices possible. Without it, moving fast across 32 teams would have meant getting sloppy by the quarter-finals.</p>
+    <p class="cs-body">It's over a decade old now. As my career moved toward larger, more established products, design system consistency became the priority and end-to-end creative swings like this got rarer. But the instinct behind it, building a system that makes room for boldness rather than constraining it, is the same one I bring to every project I work on today.</p>
+    <p class="cs-body">[Optional: add download, engagement, or performance numbers here if you have them, otherwise cut this line and end on the reflection above.]</p>
+
+</div>
+
+<!-- Case study gate -->
+<div class="cs-gate" id="cs-gate">
+    <div class="cs-gate-card">
+        <p>Enter password to view this case study</p>
+        <form class="cs-gate-form" id="cs-gate-form">
+            <input class="cs-gate-input" id="cs-gate-password" type="password" placeholder="Password" autocomplete="current-password">
+            <button class="cs-gate-btn" type="submit">View case study</button>
+            <p class="cs-gate-error" id="cs-gate-error" hidden>Incorrect password</p>
+        </form>
+    </div>
+</div>
+
+<!-- Zoom lightbox -->
+<div class="cs-lightbox" id="lightbox"><img alt=""></div>
+
+<script>
+    // ── Gate ──
+    const csGate = document.getElementById('cs-gate');
+
+    if (localStorage.getItem('portfolio_authed') === '1') {
+        csGate.hidden = true;
+    }
+
+    document.getElementById('cs-gate-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const password = document.getElementById('cs-gate-password').value;
+        const errorEl = document.getElementById('cs-gate-error');
+        errorEl.hidden = true;
+
+        try {
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+            if (res.ok) {
+                localStorage.setItem('portfolio_authed', '1');
+                csGate.hidden = true;
+            } else {
+                errorEl.hidden = false;
+            }
+        } catch {
+            errorEl.hidden = false;
+        }
+    });
+
+</script>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+
+    const sizeLightbox = () => {
+        const dpr = window.devicePixelRatio || 1;
+        const vw = window.innerWidth - 64;
+        const vh = window.innerHeight - 64;
+        const natW = lightboxImg.naturalWidth || vw;
+        const natH = lightboxImg.naturalHeight || vh;
+        // Never scale beyond the image's native resolution (crisp on Retina)
+        lightboxImg.style.maxWidth = Math.min(vw, natW / dpr) + 'px';
+        // Fit normal screenshots to the viewport; let very tall ones scroll
+        lightboxImg.style.maxHeight = (natH / natW > 2.6) ? 'none' : vh + 'px';
+    };
+
+    document.querySelectorAll('.cs-zoomable').forEach(img => {
+        img.addEventListener('click', () => {
+            lightboxImg.onload = sizeLightbox;
+            lightboxImg.src = img.currentSrc || img.src;
+            lightboxImg.alt = img.alt;
+            if (lightboxImg.complete) sizeLightbox();
+            lightbox.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    window.addEventListener('resize', () => {
+        if (lightbox.classList.contains('is-open')) sizeLightbox();
+    });
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('is-open');
+        document.body.style.overflow = '';
+    };
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeLightbox();
+    });
+</script>
+
+</body>
+</html>
